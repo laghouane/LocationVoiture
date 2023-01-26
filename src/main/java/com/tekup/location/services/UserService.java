@@ -3,12 +3,15 @@ package com.tekup.location.services;
 import com.tekup.location.entities.Role;
 import com.tekup.location.entities.User;
 import com.tekup.location.exception.EntityNotFoundException;
+import com.tekup.location.repository.RoleRepository;
 import com.tekup.location.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,20 @@ public class UserService implements IUserService{
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    private PasswordEncoder bcryptPasswordEncoder;
+
+    public void registerUser(User user){
+        user.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole(roleRepository.findAll().get(1));
+        userRepository.save(user);
+    }
+
+    public User getByUsername(String name) {
+        return userRepository.findByUsername(name).get();
+    }
+
     @Override
     public Optional<User> getUser(Long id) throws EntityNotFoundException {
         if (id == null) {

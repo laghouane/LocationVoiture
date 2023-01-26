@@ -10,15 +10,18 @@ import org.springframework.stereotype.Repository;
 import com.tekup.location.entities.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
-	
+
+
+	Optional<User> findByUsername(String username);
 	
 	  // JPQL query
-	  @Query(value = "select u from User u where u.username = :username")
+	  //@Query(value = "select u from User u where u.username = :username")
 	  //Optional<Utilisateur> findUtilisateurByEmail(@Param("username") String username);	  
-	  User findByUsername(@Param("username")String username);
+	  //User findByUsername(@Param("username")String username);
 
 	@Query("select u from User u where u.role = :r")
 	List<User> findAllByRole(@Param("r") Role role);
