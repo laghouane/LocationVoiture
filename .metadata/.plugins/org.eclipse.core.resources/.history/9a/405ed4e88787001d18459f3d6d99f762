@@ -1,0 +1,25 @@
+package com.tekup.location.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.tekup.location.entities.Role;
+import com.tekup.location.entities.User;
+import com.tekup.location.repository.RoleRepository;
+
+public class roleServiceImpl implements roleService{
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	 @Override
+	    public void save(Role role) {
+//	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//	        user.setRoles(new HashSet<>(roleRepository.findAll()));
+	        roleRepository.save(role);
+	    }
+
+	    @Override
+	    public Role findByName(String name) {
+	        return roleRepository.findByName(name);
+	    }
+
+}

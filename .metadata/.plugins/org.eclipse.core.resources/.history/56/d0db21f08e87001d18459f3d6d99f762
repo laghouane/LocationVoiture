@@ -1,0 +1,58 @@
+package com.tekup.location.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tekup.location.exception.EntityNotFoundException;
+import com.tekup.location.entities.Modele;
+import com.tekup.location.entities.Role;
+import com.tekup.location.repository.RoleRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+
+
+@Service
+@Slf4j
+public class RoleServiceImpl implements RoleService{
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	 @Override
+	    public void save(Role role) {
+//	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//	        user.setRoles(new HashSet<>(roleRepository.findAll()));
+	        roleRepository.save(role);
+	    }
+
+	    @Override
+	    public Role findByName(String name) {
+	        return roleRepository.findByName(name);
+	    }
+	    
+		//Liste des voitures
+		public List<Role> listRoles(){
+			
+			return roleRepository.findAll();
+		}
+		
+		//Récupérer un role par un id
+		public Role getRole(Integer id) throws Exception {
+			
+			if (id == null) {
+			      log.error("Role ID is null");
+			      return null;
+			    }
+			Role role=roleRepository.findById(id).get();
+			if(role == null) {
+				throw new EntityNotFoundException(
+			            "Aucun role avec l'ID = " + id + " n' ete trouve dans la BDD");
+			}
+			
+				return role;
+			
+		}
+
+}

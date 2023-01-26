@@ -1,0 +1,5 @@
+package com.tekup.location.controllers;
+
+public class RoleController {
+
+}

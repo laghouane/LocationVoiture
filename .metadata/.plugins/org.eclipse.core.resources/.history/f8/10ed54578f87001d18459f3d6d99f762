@@ -1,0 +1,99 @@
+package com.tekup.location.controllers;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tekup.location.entities.Role;
+import com.tekup.location.services.RoleService;
+
+@Controller
+public class RoleController {
+	
+
+	@Autowired
+	private RoleService roleService;
+	
+	//Ajouter un model 
+	
+	//1- Retourner un forumlaire d'ajout
+	
+	@RequestMapping("/addRole")
+	public String addRole(Model model) {
+		
+		Role role = new Role();
+		model.addAttribute("role", role);
+		return "new_role";
+	}
+	
+	//2- Ajout + redirection vers la liste des modeles
+	
+	@PostMapping(value="/saveRole")
+	public String saveModel(@ModelAttribute("role") Role role) {
+		roleService.save(role);
+		return "redirect:/listRoles";
+	}
+	
+	//Liste des modeles
+	
+	@RequestMapping("/listRoles")
+	public String listRoles(Model model) {
+	    List<Role> listRoles = roleService.listRoles();
+	    model.addAttribute("listRoles", listRoles);
+	     
+	    return "liste_roles";
+	}
+	
+	@GetMapping("editRole/{id}")
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+		try {
+			 Role role = roleService.getRole(id);
+		        model.addAttribute("role", role);
+		        return "update_role";
+		} catch (Exception e) {
+			// TODO: handle exception
+			new EntityNotFoundException(
+		            "Aucun role avec l'ID = " + id + " n' ete trouve dans la BDD");
+		}
+      return "";
+    }
+	
+    @PostMapping("updateModel/{id}")
+    public String updateModel(@PathVariable("id") Integer id,
+    		@ModelAttribute("model") Modele modeleForm,Model model) throws Exception{
+//        if (result.hasErrors()) {
+//            modele.setId(id);
+//            return "update_model";
+//        }
+    	
+    	Modele modele= modelService.getmodel(id);
+    	modele.setLibelle(modeleForm.getLibelle());
+
+        modelService.saveModel(modele);
+        model.addAttribute("listModeles", modelService.listModel());
+        return "redirect:/listeModel";
+    }
+    
+    @GetMapping("deleteModel/{id}")
+    public String deleteModel(@PathVariable("id") Integer id, Model model)  {
+    	try {
+    		modelService.deleteModel(id);
+            model.addAttribute("listeModel", modelService.listModel());
+            return "redirect:/listeModel";
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("e", e);
+			return "exception";
+		}
+    	
+    }
+
+
+}

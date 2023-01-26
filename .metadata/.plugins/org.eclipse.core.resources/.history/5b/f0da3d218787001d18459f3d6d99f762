@@ -1,0 +1,18 @@
+package com.tekup.location.services;
+
+import com.tekup.location.entities.User;
+
+public class roleServiceImpl implements roleService{
+	 @Override
+	    public void save(Role role) {
+//	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//	        user.setRoles(new HashSet<>(roleRepository.findAll()));
+	        roleRepository.save(role);
+	    }
+
+	    @Override
+	    public User findByUsername(String username) {
+	        return userRepository.findByUsername(username);
+	    }
+
+}

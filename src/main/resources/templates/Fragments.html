@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Voiture list</title>
+
+  <link rel="stylesheet"
+        th:href="@{/webjars/bootswatch/dist/flatly/bootstrap.css}">
+</head>
+
+<body>
+<nav th:fragment="nav-bar-fragment" class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Location Voiture</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarColor01" aria-controls="navbarColor01"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home
+        <span class="sr-only">(current)</span>
+      </a></li>
+      <li class="nav-item active"><a class="nav-link" th:href="@{/listeModel}">Modele Voiture
+        <span class="sr-only">(current)</span>
+      </a></li>
+      <li class="nav-item active"><a class="nav-link" th:href="@{/locations}">Reservation
+        <span class="sr-only">(current)</span>
+      </a></li>
+      <li class="nav-item active"><a class="nav-link" th:href="@{/users}">User
+        <span class="sr-only">(current)</span>
+      </a></li>
+      <li class="nav-item active"><a class="nav-link" th:href="@{/}">About
+        <span class="sr-only">(current)</span>
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Import of script -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

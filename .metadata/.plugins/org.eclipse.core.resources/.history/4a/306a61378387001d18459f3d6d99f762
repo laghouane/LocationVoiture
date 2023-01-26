@@ -1,0 +1,11 @@
+//package com.tekup.location.services;
+//
+//import com.tekup.location.entities.User;
+//
+//public interface UserService {
+//	
+//    void save(User user);
+//
+//    User findByUsername(String username);
+//
+//}

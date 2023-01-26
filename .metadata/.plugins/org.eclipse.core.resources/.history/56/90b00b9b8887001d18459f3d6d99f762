@@ -1,0 +1,11 @@
+package com.tekup.location.services;
+
+import com.tekup.location.entities.Role;
+
+
+public interface roleService {
+	   void save(Role role);
+
+	   Role findByName(String name);
+
+}
